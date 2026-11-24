@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مولّد ردود تقييمات جوجل</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:"Segoe UI",Tahoma,Arial,sans-serif;background:linear-gradient(180deg,#eaf1ff,#f7f9fc 340px) fixed,#f7f9fc;min-height:100vh;color:#1c2733}
+header{background:linear-gradient(135deg,#1347b8,#2f7bff);color:#fff;padding:34px 16px 70px;text-align:center}
+header h1{margin:0 0 6px;font-size:28px}#b{opacity:.9}.stars{color:#ffd24a;font-size:26px;letter-spacing:4px;margin-top:8px}
+main{max-width:720px;margin:-44px auto 40px;padding:22px;background:#fff;border-radius:18px;box-shadow:0 12px 40px #1347b833}
+label{display:block;margin:14px 0 6px;font-weight:700;color:#35465c}
+select,input,textarea{width:100%;padding:12px;border:1px solid #cfd9e8;border-radius:10px;font:inherit;background:#fbfdff}
+textarea{min-height:150px;background:#f1f6ff;line-height:1.7}
+button{margin-top:12px;padding:12px 20px;border:0;border-radius:10px;background:#1a56db;color:#fff;font:700 16px "Segoe UI",Tahoma,Arial,sans-serif;cursor:pointer}
+button.sec{background:#e4ecfb;color:#1a56db;margin-inline-start:8px}#copy{background:#14a44d}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row{grid-template-columns:1fr}main{margin:-44px 10px 30px;padding:16px}}
+</style></head><body>
+<header><h1 id="t" style="margin:0 0 4px;font-size:24px">مولّد ردود تقييمات خرائط جوجل</h1><div id="b"></div><div class="stars">★★★★★</div></header>
+<main>
+<div class="row"><div><label>نوع التقييم</label><select id="type"></select></div><div><label>اللهجة</label><select id="tone"></select></div></div>
+<label>اسم العميل</label><input id="name" value="أحمد" placeholder="مثال: أحمد">
+<button id="gen" type="button">اكتب الرد</button><button id="alt" class="sec" type="button">رد آخر</button>
+<label>الرد الجاهز</label><textarea id="out" readonly></textarea>
+<button id="copy" type="button">نسخ الرد</button> <span id="ok"></span>
+</main>
+<script src="review-config.js"></script>
+<script>
+const K=window.KIT;let n=0;
+b.textContent=K.business;
+for(const k in K.types)type.insertAdjacentHTML('beforeend',`<option value="${k}">${K.types[k].label}</option>`);
+for(const k in K.tones)tone.insertAdjacentHTML('beforeend',`<option value="${k}">${K.tones[k]}</option>`);
+function make(){const L=K.types[type.value][tone.value];const t=L[n%L.length];
+ out.value=t.replaceAll('{name}',name.value||'عميلنا الكريم').replaceAll('{biz}',K.business).replaceAll('{owner}',K.owner).replaceAll('{phone}',K.phone);}
+gen.onclick=()=>{n=0;make()};alt.onclick=()=>{n++;make()};
+copy.onclick=()=>{out.select();document.execCommand('copy');ok.textContent='تم النسخ'};
+make();
+</script></body></html>
